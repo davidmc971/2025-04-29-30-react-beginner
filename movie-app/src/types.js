@@ -4,4 +4,5 @@
  * @property {string} title
  * @property {string} description
  * @property {number} rating
+ * @property {boolean} isFavorite
  */

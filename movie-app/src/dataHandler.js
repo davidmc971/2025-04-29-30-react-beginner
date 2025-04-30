@@ -1,5 +1,8 @@
+// <reference path="../types.js" />
+
 import { defaultMovies, defaultNextMovieId } from "./defaultMovies";
 
+/** @type {Movie[]} */
 let movies = defaultMovies.slice();
 let nextMovieId = defaultNextMovieId;
 
@@ -55,4 +58,18 @@ export function rateMovie(id, rating) {
 export function updateMovie(updatedMovie) {
   movies = movies.map((m) => (m.id !== updatedMovie.id ? m : updatedMovie));
   return movies;
+}
+
+/**
+ * @param {number} id
+ */
+export function toggleFavorite(id) {
+  const newMovies = movies.slice();
+  const movieIndex = movies.findIndex((m) => m.id === id);
+  if (movieIndex === -1) return;
+
+  newMovies[movieIndex].isFavorite = !newMovies[movieIndex].isFavorite;
+
+  movies = newMovies;
+  return newMovies;
 }

@@ -1,7 +1,12 @@
 // <reference path="../types.js" />
 
 import { useState } from "react";
-import { deleteMovieById, rateMovie, updateMovie } from "../dataHandler";
+import {
+  deleteMovieById,
+  rateMovie,
+  toggleFavorite,
+  updateMovie,
+} from "../dataHandler";
 import MovieListItemEdit from "./MovieListItemEdit";
 
 /**
@@ -38,6 +43,10 @@ export default function MovieListItem({ movie, setMovies }) {
     setIsEditing(false);
   };
 
+  const handleToggleFavorite = () => {
+    setMovies(toggleFavorite(movie.id));
+  };
+
   return (
     <li className="flex flex-col gap-1 bg-zinc-800 rounded-md p-3 w-full max-w-[70ch]">
       {isEditing ? (
@@ -52,6 +61,12 @@ export default function MovieListItem({ movie, setMovies }) {
           <p>{movie.description}</p>
           <span>Rating: {movie.rating.toFixed(1)} / 10</span>
           <span className="pt-1 flex gap-2">
+            <button
+              className="bg-amber-200 text-yellow-950 px-2 py-0.5 rounded-md font-semibold cursor-pointer hover:brightness-80"
+              onClick={handleToggleFavorite}
+            >
+              {movie.isFavorite ? "Unfavorite" : "Favorite"}
+            </button>
             <button
               className="bg-blue-900 px-2 py-0.5 rounded-md font-semibold cursor-pointer hover:bg-blue-950"
               onClick={() => setIsEditing(true)}
