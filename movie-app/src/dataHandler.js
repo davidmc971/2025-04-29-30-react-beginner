@@ -48,3 +48,11 @@ export function rateMovie(id, rating) {
   });
   return movies;
 }
+
+/**
+ * @param {Movie} updatedMovie
+ */
+export function updateMovie(updatedMovie) {
+  movies = movies.map((m) => (m.id !== updatedMovie.id ? m : updatedMovie));
+  return movies;
+}
