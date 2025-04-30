@@ -33,3 +33,18 @@ export function addMovie(movie) {
 
   return movies;
 }
+
+/**
+ * @param {number} id
+ * @param {number | string} rating
+ */
+export function rateMovie(id, rating) {
+  movies = movies.map((movie) => {
+    if (movie.id !== id) return movie;
+    return {
+      ...movie,
+      rating: Number(rating),
+    };
+  });
+  return movies;
+}
