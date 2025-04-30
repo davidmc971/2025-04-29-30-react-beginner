@@ -1,5 +1,6 @@
 // <reference path="../types.js" />
 
+import { useLocation } from "react-router-dom";
 import { addMovie } from "../dataHandler";
 import MovieListItem from "./MovieListItem";
 
@@ -13,6 +14,9 @@ import MovieListItem from "./MovieListItem";
  * @param {MovieListProps} props
  */
 export default function MovieList({ movies, setMovies }) {
+  const location = useLocation();
+  const shouldOnlyShowFavorites = location.pathname === "/favorites";
+
   const handleAddMovie = () => {
     setMovies(
       addMovie({
@@ -25,19 +29,23 @@ export default function MovieList({ movies, setMovies }) {
 
   return (
     <>
-      <div className="flex justify-center">
-        <button
-          className="bg-zinc-300 text-zinc-950 px-2 py-0.5 rounded-md font-semibold cursor-pointer hover:bg-zinc-100"
-          onClick={handleAddMovie}
-        >
-          Add Movie
-        </button>
-      </div>
+      {!shouldOnlyShowFavorites && (
+        <div className="flex justify-center">
+          <button
+            className="bg-zinc-300 text-zinc-950 px-2 py-0.5 rounded-md font-semibold cursor-pointer hover:bg-zinc-100"
+            onClick={handleAddMovie}
+          >
+            Add Movie
+          </button>
+        </div>
+      )}
 
       <ul className="flex flex-col gap-3 items-center">
-        {movies.map((movie) => (
-          <MovieListItem key={movie.id} movie={movie} setMovies={setMovies} />
-        ))}
+        {movies
+          .filter((m) => (shouldOnlyShowFavorites ? m.isFavorite : true))
+          .map((movie) => (
+            <MovieListItem key={movie.id} movie={movie} setMovies={setMovies} />
+          ))}
       </ul>
     </>
   );
