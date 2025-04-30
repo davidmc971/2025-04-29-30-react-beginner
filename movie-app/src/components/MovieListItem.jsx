@@ -17,7 +17,7 @@ export default function MovieListItem({ movie, setMovies }) {
   };
 
   return (
-    <li className="flex flex-col gap-1 bg-zinc-800 rounded-md p-3 max-w-[70ch]">
+    <li className="flex flex-col gap-1 bg-zinc-800 rounded-md p-3 w-full max-w-[70ch]">
       <h3 className="font-semibold">{movie.title}</h3>
       <p>{movie.description}</p>
       <span>Rating: {movie.rating.toFixed(1)} / 10</span>

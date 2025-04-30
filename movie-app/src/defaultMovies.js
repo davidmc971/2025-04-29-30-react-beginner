@@ -36,3 +36,9 @@ export const defaultMovies = [
     rating: 9.0,
   },
 ];
+
+// Didn't want to hardcode the starting id so it is counted based on the defaultMovies array using reduce.
+// See here for reference:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+export const defaultNextMovieId =
+  1 + defaultMovies.reduce((maxId, movie) => Math.max(movie.id, maxId), 0);
